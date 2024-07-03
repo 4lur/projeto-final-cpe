@@ -210,7 +210,7 @@ void BingoGame::updatePodium(const string& winner) {
 }
 
 void BingoGame::displayPodium() const {
-    cout<<"===== Pódio ====="<<endl;
+    cout<<"===== Podio ====="<<endl;
     for(const auto& entry:podium) {
         cout<<"Jogador: "<< entry.first << " - Virorias: " << entry.second << endl;
     }
