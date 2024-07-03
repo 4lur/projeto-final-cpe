@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <map>
 
 using namespace std;
 
@@ -41,15 +42,18 @@ class BingoGame
 private:
     vector<Player> players;   // Vetor de jogadores
     vector<int> numbersDrawn; // Vetor para armazenar os números sorteados
-
+    map <string, int> podium;  // Mapa para armazenar as vitórias de cada jogador
+ 
 public:
     BingoGame(const vector<string> &playerNames);
     void play();
+    void displayPodium() const; // Métado para exiber o pódio
 
 private:
     int drawsCount;                 // Contador de números sorteados
     int drawNumber();               // Sorteia um número
-    BingoCard generateUniqueCard(); // Métodos para gerar uma cartela única
+    void generateUniqueCards(); // Métodos para gerar uma cartela única
+    void updatePodium(const string& winner);    
 };
 
 #endif // BINGO_H

@@ -118,6 +118,7 @@ BingoGame::BingoGame(const vector<string> &playerNames) : drawsCount(0)
     {
         players.emplace_back(name);
     }
+    generateUniqueCards(); // Cria cartelas únicas para os jogadores
 }
 
 // Método principal do jogo
@@ -138,11 +139,14 @@ void BingoGame::play()
             if (player.card.checkWin())
             {
                 cout << "Bingo! Jogador " << player.name << " ganhou apos " << drawsCount << " numeros sorteados" << endl;
+                updatePodium(player.name);
+                displayPodium();
                 gameWon = true;
                 break;
             }
         }
-        cout << "\b\b\b\b\b\b\b\b\b\b\b\bSorteando   " << flush;
+        sleep(2);
+        /*cout << "\b\b\b\b\b\b\b\b\b\b\b\bSorteando   " << flush;
         sleep(1);
         cout << "\b\b\b\b\b\b\b\b\b\b\b\bSOrteando   " << flush;
         sleep(1);
@@ -165,8 +169,8 @@ void BingoGame::play()
         cout << "\b\b\b\b\b\b\b\b\b\b\b\bSorteando.. " << flush;
         sleep(1);
         cout << "\b\b\b\b\b\b\b\b\b\b\b\bSorteando..." << flush;
-        sleep(1);
-        cout << "\n                                              Total de numeros sorteados: " << drawsCount << endl;
+        sleep(1);*/
+        cout<< "\n                                             Total de numeros sorteados: " << drawsCount << endl;
     }
 }
 
@@ -184,15 +188,31 @@ int BingoGame::drawNumber()
 }
 
 //
-BingoCard BingoGame::generateUniqueCard()
+void BingoGame::generateUniqueCards()
 {
-    BingoCard newCard;
-    // Gera uma nova cartela até que seja diferente de todas as cartelas existentes
+    vector<BingoCard> uniqueCards;
+    for(auto& player:players) {
+        BingoCard newCard;
+    
     do
     {
         newCard.generateCard();
-    } while (any_of(players.begin(), players.end(), [&newCard](const Player &player)
-                    { return player.card == newCard; }));
+    } while (find(uniqueCards.begin(), uniqueCards.end(), newCard) != uniqueCards.end());
+        uniqueCards.push_back(newCard);
+        player.card = newCard;
+    
+    }
+    
+}
 
-    return newCard;
-};
+void BingoGame::updatePodium(const string& winner) {
+    podium[winner]++;
+}
+
+void BingoGame::displayPodium() const {
+    cout<<"===== Podium ====="<<endl;
+    for(const auto& entry:podium) {
+        cout<<"Player: "<< entry.first << " - Wins: " << entry.second << endl;
+    }
+    cout<<"=================="<<endl;
+}
