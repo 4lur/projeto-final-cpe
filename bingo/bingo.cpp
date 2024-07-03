@@ -145,7 +145,7 @@ void BingoGame::play()
                 break;
             }
         }
-        sleep(2);
+        sleep(1);
         /*cout << "\b\b\b\b\b\b\b\b\b\b\b\bSorteando   " << flush;
         sleep(1);
         cout << "\b\b\b\b\b\b\b\b\b\b\b\bSOrteando   " << flush;
@@ -210,9 +210,9 @@ void BingoGame::updatePodium(const string& winner) {
 }
 
 void BingoGame::displayPodium() const {
-    cout<<"===== Podium ====="<<endl;
+    cout<<"===== Pódio ====="<<endl;
     for(const auto& entry:podium) {
-        cout<<"Player: "<< entry.first << " - Wins: " << entry.second << endl;
+        cout<<"Jogador: "<< entry.first << " - Virorias: " << entry.second << endl;
     }
-    cout<<"=================="<<endl;
+    cout<<"================="<<endl;
 }
