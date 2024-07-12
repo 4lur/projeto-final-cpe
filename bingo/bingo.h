@@ -8,7 +8,7 @@
 using namespace std;
 
 const int size = 5;
-const int max_number = 75;
+const int max_number = 100;
 
 // Classe BingoCard representa uma cartela de Bingo
 class BingoCard
